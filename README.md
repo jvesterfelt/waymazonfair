@@ -18,8 +18,12 @@ Clone install files, run "npm install", log into mysql and run "source db/schema
 This project is exclusively for educational purposes.
     
 #### Usage Screenshots:
+![image](https://user-images.githubusercontent.com/81572838/126921685-7fe3b454-be0c-4e99-9d94-60460d04a281.png)
 
-    
+![image](https://user-images.githubusercontent.com/81572838/126921716-d996322a-6f23-46ef-a687-55e407121320.png)
+
+#### Video Demonstration:
+https://youtu.be/asF-8vIKCEE
 
     
 ## Contributing
