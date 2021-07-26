@@ -7,13 +7,14 @@ router.get('/', (req, res) => {
     // find all categories
     // be sure to include its associated Products
     Category.findAll({
-            attributes: ['id', 'category_name'],
+            attributes: ['id', 'category_name']
+        }, {
             include: [{
                 model: Product,
-                attributes: ['id', 'product_name', 'price', 'stock']
+                attributes: ['product_name', 'price', 'stock']
             }]
         })
-        .then(dbCategoryData => res.status(200).res.json(dbCategoryData))
+        .then(dbCategoryData => res.json(dbCategoryData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -27,13 +28,12 @@ router.get('/:id', (req, res) => {
             where: {
                 id: req.params.id
             },
-            attributes: ['id', 'category_name'],
             include: [{
                 model: Product,
-                attributes: ['id', 'product_name', 'price', 'stock']
+                attributes: ['product_name', 'price', 'stock']
             }]
         })
-        .then(dbCategoryData => res.status(200).res.json(dbCategoryData))
+        .then(dbCategoryData => res.json(dbCategoryData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -45,7 +45,7 @@ router.post('/', (req, res) => {
     Category.create({
             category_name: req.body.category_name
         })
-        .then(dbCategoryData => res.status(200).res.json(dbCategoryData))
+        .then(dbCategoryData => res.json(dbCategoryData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -54,14 +54,14 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
     // update a category by its `id` value
-    Category.update({
-            id: req.params.id
-        }, {
+    Category.update(req.body, {
             where: {
                 id: req.params.id
             }
+        }, {
+            category_name: req.params.category_name
         })
-        .then(dbCategoryData => res.status(200).res.json(dbCategoryData))
+        .then(dbCategoryData => res.json(dbCategoryData))
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
@@ -75,7 +75,10 @@ router.delete('/:id', (req, res) => {
                 id: req.params.id
             }
         })
-        .then(dbCategoryData => res.status(200).res.json(dbCategoryData))
+        .then(dbCategoryData => {
+            console.log('Product deleted.')
+            res.status(200);
+        })
         .catch(err => {
             console.log(err);
             res.status(500).json(err);
