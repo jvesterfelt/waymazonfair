@@ -7,11 +7,10 @@ router.get('/', (req, res) => {
     // find all tags
     // be sure to include its associated Product data
     console.log('==========');
-    Tag.findAll({
+    Tag.findAll(req.body, {
             attributes: ['id', 'tag_name'],
             include: [{
-                model: Product,
-                attributes: ['id', 'product_name', 'price', 'stock', 'tag_id']
+                model: Product
             }]
         })
         .then(dbTagData => res.json(dbTagData))
@@ -24,13 +23,12 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
     // find a single tag by its `id`
     // be sure to include its associated Product data
-    Tag.findOne({
+    Tag.findOne(req.body, {
             where: {
                 id: req.params.id
             },
             include: [{
-                model: Product,
-
+                model: Product
             }]
         })
         .then(dbTagData => res.json(dbTagData))
@@ -70,7 +68,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     // delete on tag by its `id` value
-    Tag.destroy({
+    Tag.destroy(req.body, {
             where: {
                 id: req.params.id
             }
